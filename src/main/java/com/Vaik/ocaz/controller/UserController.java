@@ -3,21 +3,30 @@ package com.Vaik.ocaz.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import com.Vaik.ocaz.component.JwtUtils;
 import com.Vaik.ocaz.model.*;
 import com.Vaik.ocaz.service.*;
+
+import io.jsonwebtoken.Claims;
+
+
 @RestController
 @RequestMapping("/api")
 public class UserController {
 
     private final UserService userService;
+    private final JwtUtils jwtUtils;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, JwtUtils jwtUtils) {
         this.userService = userService;
+        this.jwtUtils = jwtUtils;
     }
 
+    
     @GetMapping("/{id}")
     public ResponseEntity<Utilisateur> getUserById(@PathVariable Long id) {
         Utilisateur utilisateur = userService.getUserById(id);
@@ -29,11 +38,21 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Utilisateur utilisateur) {
+    public ResponseEntity<String> login(@RequestBody Utilisateur utilisateur) throws Exception {
         boolean isValidLogin = userService.isValidLogin(utilisateur.getNom(), utilisateur.getPassword());
-
+        String jwtToken = null;
         if (isValidLogin) {
-            return new ResponseEntity<>("Authentification réussie", HttpStatus.OK);
+            // Si l'authentification réussit, générer le jeton JWT
+            try{
+                jwtToken = jwtUtils.generateJwt(utilisateur);
+            // Claims cl = jwtUtils.verify(jwtToken);
+            }
+            catch(Exception e){
+                throw e;
+            }
+
+            // Vous pouvez renvoyer le token dans la réponse si nécessaire
+            return new ResponseEntity<>("Authentification réussie. Token JWT : " + jwtToken, HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Authentification échouée", HttpStatus.UNAUTHORIZED);
         }
