@@ -30,14 +30,14 @@ public class JwtUtils {
 
         // claims
         Claims claims = Jwts.claims()
-                .setIssuer(String.valueOf(user.getIdUtilisateur()))
+                .setIssuer(String.valueOf(user.getNom()))
                 .setIssuedAt(issuedAt)
                 .setExpiration(expiryAt);
 
         // optional claims
         // claims.put("type", user.getUserType());
         claims.put("name", user.getNom());
-        claims.put("emailId", user.getEmail());
+        claims.put("email", user.getEmail());
 
         // generate jwt using c laims
         return Jwts.builder()
