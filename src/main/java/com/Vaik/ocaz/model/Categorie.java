@@ -1,10 +1,13 @@
 package com.Vaik.ocaz.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,6 +21,10 @@ public class Categorie {
     @Column(name = "nomcategorie")
     private String nomCategorie;
 
+
+    @OneToMany(mappedBy = "categorie")
+    private List<Marque> marques;
+    
     public int getIdcategorie() {
         return idcategorie;
     }

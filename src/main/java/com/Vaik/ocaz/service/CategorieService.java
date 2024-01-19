@@ -35,14 +35,10 @@ public class CategorieService {
         catRep.deleteById(id);
     }
 
-        public Categorie updateCategorie(Categorie cat) {
-        // Vérifiez si l'entité existe dans la base de données
+    public Categorie updateCategorie(Categorie cat) {
         if (cat.getIdcategorie() != 0 && catRep.existsByIdcategorie(cat.getIdcategorie())) {
-            // Si elle existe, utilisez save pour mettre à jour l'entité
             return catRep.save(cat);
         } else {
-            // Sinon, elle n'existe pas, vous pouvez choisir de gérer cela en conséquence,
-            // par exemple, lever une exception ou retourner null
             throw new EntityNotFoundException("La catégorie avec l'ID " + cat.getIdcategorie() + " n'existe pas");
         }
     }
