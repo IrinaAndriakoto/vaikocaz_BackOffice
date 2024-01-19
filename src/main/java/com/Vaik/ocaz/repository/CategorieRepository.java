@@ -6,4 +6,5 @@ import com.Vaik.ocaz.model.Categorie;
 
 public interface CategorieRepository extends JpaRepository<Categorie, Long> {
     // Categorie findByNom(String nom);
+    boolean existsByIdcategorie(int idcategorie);
 }
