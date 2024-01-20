@@ -51,19 +51,19 @@ public class MarqueController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Marque> createCategory(@RequestBody Marque m) {
+    public ResponseEntity<Marque> createMarque(@RequestBody Marque m) {
         Marque savedCategory = service.createMarque(m);
         return new ResponseEntity<>(savedCategory, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Marque> updateCategory(@RequestBody Marque m) {
+    public ResponseEntity<Marque> updateMarque(@RequestBody Marque m) {
         Marque updatedCategory = service.updateMarque(m);
         return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
     }
 
         @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteMarque(@PathVariable Long id) {
         service.deleteMarque(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

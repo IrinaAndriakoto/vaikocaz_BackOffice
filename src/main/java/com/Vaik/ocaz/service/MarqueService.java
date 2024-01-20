@@ -12,10 +12,12 @@ import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class MarqueService {
+    private final MarqueRepository marqueRepository;
 
     @Autowired
-    private MarqueRepository marqueRepository;
-
+    public MarqueService(MarqueRepository marqueRepository){
+        this.marqueRepository = marqueRepository;
+    }
     public List<Marque> getAllMarques() {
         return marqueRepository.findAll();
     }
