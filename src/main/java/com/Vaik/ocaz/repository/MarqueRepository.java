@@ -8,3 +8,4 @@ public interface MarqueRepository extends JpaRepository<Marque, Long> {
     boolean existsByIdmarque(int idmarque);
 
 }
+ 

@@ -36,7 +36,7 @@ public class MarqueService {
         if (marque.getIdmarque() != 0 && marqueRepository.existsByIdmarque(marque.getIdmarque())) {
             return marqueRepository.save(marque);
         } else {
-            throw new EntityNotFoundException("La catégorie avec l'ID " + marque.getIdmarque() + " n'existe pas");
+            throw new EntityNotFoundException("La marque avec l'ID " + marque.getIdmarque() + " n'existe pas");
         }
     }
 
