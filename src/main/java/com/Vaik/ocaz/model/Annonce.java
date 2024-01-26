@@ -1,5 +1,7 @@
 package com.Vaik.ocaz.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +32,20 @@ public class Annonce {
 
     @Column(name="isValid")
     private boolean isValid;
+
+    @ManyToOne
+    @JoinColumn(name = "id_utilisateur")
+    @JsonBackReference
+    private Utilisateur utilisateur;
+    
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
 
     public int getIdAnnonce() {
         return idannonce;

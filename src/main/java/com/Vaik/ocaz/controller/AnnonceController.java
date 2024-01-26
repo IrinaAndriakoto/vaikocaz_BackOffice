@@ -3,7 +3,9 @@ package com.Vaik.ocaz.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Vaik.ocaz.model.Annonce;
+import com.Vaik.ocaz.model.Utilisateur;
 import com.Vaik.ocaz.service.AnnonceService;
+import com.Vaik.ocaz.service.UserService;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,11 +20,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("annonce")
 public class AnnonceController {
+    @Autowired
     private final AnnonceService serv;
+
+
+    @Autowired
+    private UserService utilisateurService;
 
     @Autowired
     public AnnonceController(AnnonceService s){
@@ -50,9 +58,16 @@ public class AnnonceController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Annonce> createAnnonce(@RequestBody Annonce m) {
-        Annonce savedCategory = serv.createAnnonce(m);
-        return new ResponseEntity<>(savedCategory, HttpStatus.CREATED);
+    public ResponseEntity<Annonce> createAnnonce(@RequestBody Annonce annonce, @RequestParam Long id_utilisateur) {
+        Utilisateur utilisateur = utilisateurService.getUserById(id_utilisateur);
+        
+        if (utilisateur != null) {
+            annonce.setUtilisateur(utilisateur);
+            Annonce savedAnnonce = serv.createAnnonce(annonce);
+            return new ResponseEntity<>(savedAnnonce, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/update")

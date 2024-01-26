@@ -1,15 +1,20 @@
 package com.Vaik.ocaz.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 // import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +31,9 @@ public class Utilisateur implements UserDetails {
     private String email;
     private String password;
 
+    @OneToMany(mappedBy = "utilisateur")
+    @JsonManagedReference
+    private List<Annonce> annonces = new ArrayList<>();
     
     public int getIdUtilisateur() {
         return idUtilisateur;
@@ -51,7 +59,13 @@ public class Utilisateur implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+    public List<Annonce> getAnnonces() {
+        return annonces;
+    }
+    public void setAnnonces(List<Annonce> annonces) {
+        this.annonces = annonces;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // TODO Auto-generated method stub
@@ -82,6 +96,5 @@ public class Utilisateur implements UserDetails {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'isEnabled'");
     }
-
     
 }
