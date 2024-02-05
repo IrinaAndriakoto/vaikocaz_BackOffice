@@ -30,11 +30,19 @@ public class Utilisateur implements UserDetails {
     private String nom;
     private String email;
     private String password;
-
+    private boolean isAdmin;
+    
+    
     @OneToMany(mappedBy = "utilisateur")
     @JsonManagedReference
     private List<Annonce> annonces = new ArrayList<>();
     
+    public boolean isAdmin() {
+        return isAdmin;
+    } 
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
     public int getIdUtilisateur() {
         return idUtilisateur;
     }
