@@ -15,6 +15,7 @@ import io.jsonwebtoken.Claims;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class UserController {
 
     private final UserService userService;
@@ -58,16 +59,15 @@ public class UserController {
         }
     }
 
-    // @PostMapping("/inscription")
-    // public ResponseEntity<String> registerUser(@RequestBody Utilisateur utilisateur) {
-    //     boolean isUserRegistered = userService.registerUser(utilisateur);
+    @PostMapping("/inscription")
+    public ResponseEntity<String> registerUser(@RequestBody Utilisateur utilisateur) {
+        boolean isUserRegistered = userService.registerUser(utilisateur);
 
-    //     if (isUserRegistered) {
-    //         return new ResponseEntity<>("Utilisateur enregistré avec succès", HttpStatus.CREATED);
-    //     } else {
-    //         return new ResponseEntity<>("Échec de l'inscription de l'utilisateur", HttpStatus.BAD_REQUEST);
-    //     }
-    // }
+        if (isUserRegistered) {
+            return new ResponseEntity<>("Utilisateur enregistré avec succès", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Échec de l'inscription de l'utilisateur", HttpStatus.BAD_REQUEST);
+        }
+    }
 
-    // Vous pouvez ajouter d'autres méthodes pour gérer les utilisateurs
 }
