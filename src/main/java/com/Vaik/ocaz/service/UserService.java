@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.Vaik.ocaz.model.Marque;
 import com.Vaik.ocaz.model.Utilisateur;
 import com.Vaik.ocaz.repository.UserRepository;
 
@@ -36,7 +37,9 @@ public class UserService {
 
         return utilisateur != null && utilisateur.getPassword().equals(password);
     }
-    
+    public Utilisateur createUtilisateur(Utilisateur u) {
 
+        return userrepo.save(u);
+    }
 }
 

@@ -22,6 +22,9 @@ public class Annonce {
     @Column(name="description")
     private String description;
 
+    @Column(name="photos")
+    private String photos;
+
     @ManyToOne
     @JoinColumn(name="idcategorie")
     private Categorie categorie;
@@ -38,6 +41,23 @@ public class Annonce {
     @JsonBackReference
     private Utilisateur utilisateur;
     
+
+    
+    public int getIdannonce() {
+        return idannonce;
+    }
+
+    public void setIdannonce(int idannonce) {
+        this.idannonce = idannonce;
+    }
+
+    public String getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(String photos) {
+        this.photos = photos;
+    }
 
     public Utilisateur getUtilisateur() {
         return utilisateur;
